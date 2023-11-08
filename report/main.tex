@@ -1,5 +1,13 @@
 
 \documentclass[a4paper,12pt]{article}
+
+\setlength{\textwidth}{15.0cm}
+\setlength{\textheight}{24.0cm}
+\setlength{\topmargin}{0cm}
+\setlength{\headsep}{0cm}
+\setlength{\headheight}{0cm}
+\pagestyle{plain}
+
 \usepackage{hyperref}
 \hypersetup{
     colorlinks=true,
@@ -42,8 +50,21 @@ style=alphabetic,
 \section{Failure of the Multigrid method for Helmholtz problems: analysis}
 
 \subsection{Discretization}
+(a)
+\begin{align*}
+    10                    & \leq \lambda \text{ \#gridpoints} \Leftrightarrow                \\
+    10                    & \leq \frac{2\pi}{\sqrt{|\sigma|}} \frac{1}{h^{d}}\Leftrightarrow \\
+    \sqrt{|\sigma|} h^{d} & \leq \frac{2 \pi}{10} \approx 0.625.
+\end{align*}
+
+(b)
+\[
+    \text{\# roosterpunten} = \frac{10 \sqrt{600}}{2 \pi}
+    .\]
 
 \subsection{1D model problem}
+
+test
 
 \subsection{LFA analysis of the $\omega$-Jacobi smoother}
 
