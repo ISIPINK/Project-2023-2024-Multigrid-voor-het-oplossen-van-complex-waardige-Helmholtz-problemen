@@ -1,12 +1,12 @@
 from constructions import simple_restrict_matrix, simple_interpolate_matrix
 from plt_utils import *
-from scipy.sparse.linalg import spsolve, inv
+from scipy.sparse.linalg import spsolve
 from scipy.sparse import spdiags, tril, triu
 
 
 def wjacobi(A, f, u, omega):
     n = len(u)+1
-    Dinv = inv(spdiags(A.diagonal(), [0], (n-1, n-1)))
+    Dinv = spdiags(1/A.diagonal(), [0], (n-1, n-1))
     U, L = triu(A, 1), tril(A, -1)
     return (1-omega)*u + omega*Dinv @ (f-(U+L)@u)
 

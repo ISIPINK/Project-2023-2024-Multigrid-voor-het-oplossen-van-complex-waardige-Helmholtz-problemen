@@ -63,8 +63,40 @@ style=alphabetic,
     .\]
 
 \subsection{1D model problem}
+(a) \\
+To proof : $H^{2 h} \neq I_h^{2 h} H^h I_{2 h}^h$.
+\begin{align*}
+    H^{2h} & = H_n = A_n +\sigma {id}_n          \\
+    H^{h}  & = H_{2n} = A_{2n} +\sigma {id}_{2n}
+\end{align*}
+Assume that $A_n =I_h^{2 h} A_{2n} I_{2 h}^h= R_{2n} A_{2n} I_n$. By linearity it is  sufficient
+to proof:
+\begin{align*}
+    \sigma {id}_n  & \neq \sigma R_{2n} {id}_{2n} I_{n} \Leftrightarrow \\
+    {id}_n         & \neq R_{2n} I_{n} \Leftarrow                       \\
+    (id_n)_{00} =1 & \neq \frac{3}{4} = (R_{2n} I_{n})_{00}
+\end{align*}
 
-test
+First equivalence follows from $\sigma \neq 0$. The assumption and the last inequality depends on the definition of
+restriction and interpolation. \\
+(b) \\
+See code/main.ipynb for code and plots. \\
+(c) \\
+There exists a closed formula for eigenvalues and eigenvectors of tridiagonal toeplitz matrix. It is just tedious to
+use. Alternatively the eigenvalues and eigenvectors can be derived from the Poisson problem ($\sigma=0$) because
+\begin{align*}
+    Av             & = \lambda v \Rightarrow \\
+    (A+\sigma id)v & = Av + \sigma v         \\
+                   & = (\lambda+\sigma)v
+\end{align*}
+i.e. eigenvectors stay the same and eigenvalues get shifted by $\sigma$. \\
+
+(d) \\
+See code/main.ipynb for the plot. $\sigma = 0$ is the boundary where $H$ goes from indefinite to definite.
+
+
+
+
 
 \subsection{LFA analysis of the $\omega$-Jacobi smoother}
 
