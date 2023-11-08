@@ -1,0 +1,84 @@
+
+\documentclass[a4paper,12pt]{article}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=blue,
+    citecolor=blue,
+    linktoc=page
+}
+\usepackage[dvips]{epsfig}
+\usepackage{tikz}
+\usepackage[english]{babel}
+\usepackage{caption}
+\captionsetup{font=it}
+\usepackage[autostyle, english=american]{csquotes}
+
+\usepackage[
+backend=biber,
+style=alphabetic,
+]{biblatex}
+
+\renewcommand{\bibfont}{\footnotesize}
+
+\usepackage{amsmath,amssymb,amsthm}
+
+\usepackage{comment}
+\usepackage{listings}
+
+% \addbibresource{bibliography2.bib} 
+\setlength{\parindent}{0pt}
+
+\selectlanguage{english}
+\begin{document}
+
+\title{Multigrid for solving complex-valued Helmholtz problems}
+\author{Isidoor Pinillo Esquivel}
+\date{\today}
+\maketitle
+
+\section{Failure of the Multigrid method for Helmholtz problems: analysis}
+
+\subsection{Discretization}
+
+\subsection{1D model problem}
+
+\subsection{LFA analysis of the $\omega$-Jacobi smoother}
+
+\subsection{Spectral analysis of the two-grid correction scheme}
+
+\section{Solving the complex-valued Helmholtz problem using Multigrid}
+
+\subsection{1D model problem}
+
+\subsection{LFA analysis of the $\omega$-Jacobi smoother}
+
+\subsection{Spectral analysis of the two-grid correction scheme}
+
+\subsection{2D model problem}
+
+\subsection{Aggressive coarsening}
+
+\section{Multigrid as a preconditioner for Krylov subspace methods}
+
+\subsection{MG-GMRES for the indefinite Helmholtz problem}
+
+\end{document}
+
+% Base your answers on the thesis.  
+% You are expert in giving and revising homework.
+%
+% Answer as a markdown file.
+% Use subnumerings in mark down form in numbering the question 
+% that works in a markdown file and use different headers. Like this: 
+%
+% #  1. Question?
+% answer
+%
+% Here are the questions : 
+% 1. Are all requirements of the project met?
+% 2. Are there any writing errors?
+% 3. What are the most unclear parts in the report?
+% 4. Suggest improvements. 
