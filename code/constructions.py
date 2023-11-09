@@ -3,9 +3,13 @@ import numpy as np
 
 
 def helmholtz1D(n, sigma):
-    H = n**2*diags([-1, 2, -1], [-1, 0, 1],
+    A = n**2*diags([-1, 2, -1], [-1, 0, 1],
                    shape=(n-1, n-1))
-    return H + sigma*eye(n-1)
+    return A + sigma*eye(n-1)
+
+
+def eigen_helmhotz1D(n, k, sigma):
+    return 4*np.sin(k*np.pi/(2*n))**2*n**2 + sigma
 
 
 def Romega(n, sigma, omega):
@@ -37,7 +41,7 @@ def wave_basis_1D(n, k):
 
 
 def pointsource_half(n):
-    return np.array([n**2 if j == int(n/2) else 0 for j in range(n-1)])
+    return np.array([1/n if j == int(n/2) else 0 for j in range(n-1)])
 
 
 def guessv0(n):

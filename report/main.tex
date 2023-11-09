@@ -80,7 +80,8 @@ to proof:
 First equivalence follows from $\sigma \neq 0$. The assumption and the last inequality depends on the definition of
 restriction and interpolation. \\
 (b) \\
-See code/main.ipynb for code and plots. \\
+See code/main.ipynb for code and plots. We implemented $f(t) = \delta(t-0.5)$ by concentrating all the mass into the
+middle element of $f_n$.\\
 (c) \\
 There exists a closed formula for eigenvalues and eigenvectors of tridiagonal toeplitz matrix. It is just tedious to
 use. Alternatively the eigenvalues and eigenvectors can be derived from the Poisson problem ($\sigma=0$) because
@@ -132,6 +133,43 @@ which suggests that weighted jacobi wouldn't converge.
 
 
 \subsection{Spectral analysis of the two-grid correction scheme}
+(a) \\
+Note that
+\begin{equation}
+    R_{2n} w_{k}^{2n} =
+    \begin{cases}
+        a(k) w_{k}^{n}   & \text{if } k \leq n \\
+        a(n-k) w_{k}^{n} & \text{if } k > n
+    \end{cases}
+\end{equation}
+and
+\begin{equation}
+    I_{n} R_{2n} v_{2n} \approx v_{2n}.
+\end{equation}
+if $v_{2n}$ is smooth sometimes by definition.
+We checked this numerically by plotting the reconstruction error.
+For linear interpolation and the corresponding restriction
+this follows from bounds on reconstruction loss for
+Lagrange interpolation. To check the normalizing constant try $v_{2n} = 1$. \\
+
+\begin{align*}
+    TG w_{k}^{2n} & = (id - I_{n} H_{n}^{-1} R_{2n} H_{2n}) w_{k}^{2n}                                    \\
+                  & =  w_{k}^{2n} - I_{n} H_{n}^{-1} R_{2n} \lambda_{k}(H_{2n}) w_{k}^{2n}                \\
+                  & =  w_{k}^{2n} - I_{n} H_{n}^{-1}  a(k) w_{k}^{n} \lambda_{k}(H_{2n})                  \\
+                  & =  w_{k}^{2n} - I_{n}  a(k) w_{k}^{n} \lambda_{k}(H_{n}^{-1})  \lambda_{k}(H_{2n})    \\
+                  & =  w_{k}^{2n} - I_{n}  R_{2n} w_{k}^{2n} \lambda_{k}(H_{n}^{-1})  \lambda_{k}(H_{2n}) \\
+                  & \approx  w_{k}^{2n} -  w_{k}^{2n} \lambda_{k}(H_{n}^{-1})  \lambda_{k}(H_{2n})        \\
+                  & \approx  w_{k}^{2n} (1-   \lambda_{k}(H_{n}^{-1})  \lambda_{k}(H_{2n}))
+\end{align*}
+
+(b) \\
+We already analytically derived the eigenvalues for $H_{n}$. For the plot see code.\\
+TG iterations may amplify smooth modes when $\rho_{k} >1$. \\
+(c)\\
+See code for the plots. $\rho_{k} >1$ when the sign changes. In the previous case the
+index closest to the sign change is $k = 6$. No the smoother leaves smooth modes almost unchanged.
+
+
 
 \section{Solving the complex-valued Helmholtz problem using Multigrid}
 
