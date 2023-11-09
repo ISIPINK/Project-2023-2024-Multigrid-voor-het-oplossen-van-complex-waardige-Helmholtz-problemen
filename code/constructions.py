@@ -1,4 +1,4 @@
-from scipy.sparse import eye, diags, dok_matrix
+from scipy.sparse import eye, diags, dok_matrix, spdiags
 import numpy as np
 
 
@@ -6,6 +6,12 @@ def helmholtz1D(n, sigma):
     H = n**2*diags([-1, 2, -1], [-1, 0, 1],
                    shape=(n-1, n-1))
     return H + sigma*eye(n-1)
+
+
+def Romega(n, sigma, omega):
+    H = helmholtz1D(n, sigma)
+    Dinv = spdiags(1/H.diagonal(), [0], (n-1, n-1))
+    return eye(n-1)-omega*Dinv@H
 
 
 def simple_restrict_matrix(n):

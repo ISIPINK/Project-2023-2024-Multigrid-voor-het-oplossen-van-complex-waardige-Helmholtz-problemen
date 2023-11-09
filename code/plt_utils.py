@@ -9,7 +9,7 @@ def plt_mat(H, title=""):
     plt.colorbar()
     plt.title(title)
     plt.grid(True)
-    plt.show()
+    # plt.show()
 
 # maybe combine with plt_vecs
 
@@ -30,7 +30,7 @@ def plt_vec(v, title=""):
     plt.plot(range(1, len(v)+1), 1.1*v, alpha=1, color="green")
     plt.title(title)
     plt.grid(True)
-    plt.show()
+    # plt.show()
 
 
 def plt_vecs(vecs, titles=[]):
@@ -42,3 +42,21 @@ def plt_vecs(vecs, titles=[]):
     i_slider = widgets.IntSlider(
         value=0, min=0, max=len(vecs) - 1, description="i")
     display(widgets.interactive(tmp, i=i_slider))
+
+
+def plt_eigen(H, title=""):
+    eigenvalues, _ = np.linalg.eig(H.toarray())
+    eigenvalues = np.array(sorted(eigenvalues, key=lambda x: np.abs(
+        x)*(0 if x.real == 0 else x.real/np.abs(x.real))))
+    plt.title(title)
+    plt.plot(range(len(eigenvalues)), eigenvalues.real,
+             label='Eigenvalues.real')
+    plt.plot(range(len(eigenvalues)), eigenvalues.imag,
+             label='Eigenvalues.imag')
+    plt.plot(range(len(eigenvalues)), np.abs(
+        eigenvalues), label='Eigenvalues.abs')
+    plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
+    plt.grid(True)
+    plt.xlabel('Eigenvalue Index')
+    plt.ylabel('Eigenvalue')
+    plt.show()

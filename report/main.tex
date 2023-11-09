@@ -94,11 +94,42 @@ i.e. eigenvectors stay the same and eigenvalues get shifted by $\sigma$. \\
 (d) \\
 See code/main.ipynb for the plot. $\sigma = 0$ is the boundary where $H$ goes from indefinite to definite.
 
-
-
-
-
 \subsection{LFA analysis of the $\omega$-Jacobi smoother}
+(a) \\
+For grid points without a neighboring boundary point there
+$H$ acts like following stencil:
+\[
+    H_n = n^{2} [ -1 \quad 2+ \frac{\sigma}{n^{2}}  \quad -1]
+    .\]
+
+So $R_{\omega}$ works element wise the following way on the error:
+\begin{equation}
+    e_{j}^{m+1} = (1-\omega) e_{j} ^{m} + \frac{\omega n^{2}}{2 n^{2} + \sigma} (e_{j-1} ^{m} + e_{j+1}^{m})
+    .
+\end{equation}
+Very similar to the analysis for the Poisson equation. Note that we haven't used that $\sigma$ is real.
+Doing the LFA subsitution $e_j^{(m)}=\mathcal{A}(m) e^{i j \theta}$:
+
+\begin{align*}
+    A(m+1) & = A(m) \left( 1-\omega + \frac{\omega n^{2}}{2 n^{2} + \sigma} (e^{-i\theta} + e^{i\theta}) \right) \\
+           & = A(m) \left( 1-\omega + 2 \cos(\theta) \frac{\omega n^{2}}{2 n^{2} + \sigma}   \right)
+\end{align*}
+The factor in behind of $A(m)$ is the amplification factor $G(\theta)$.
+
+(b) \\
+$\sigma = 0$ reduces back to the LFA we did for the Poisson equation.
+$\theta \approx 0 \Rightarrow \cos(\theta)
+    \approx 1 + O \left(\frac{1}{n^{2}}\right) \Rightarrow G(\theta) \approx 1 - O \left(\frac{1}{n^{2}}\right)$
+so smooth modes are preserved for big $n$.
+(c) \\
+See code/main.ipynb for the plot. \\
+
+(d)\\
+Maximum of $G(\theta)$ is achieved at $\theta =0$ because $G(\theta)$ is just
+an increasing function of $\cos(\theta)$. This means that
+$\rho = 1-\omega + 2 \frac{\omega n^{2}}{2 n^{2} + \sigma}  \approx 1.05 $
+which suggests that weighted jacobi wouldn't converge.
+
 
 \subsection{Spectral analysis of the two-grid correction scheme}
 
