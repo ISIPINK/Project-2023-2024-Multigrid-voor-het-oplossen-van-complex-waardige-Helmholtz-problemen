@@ -226,6 +226,16 @@ our convergence factors, asymptotically behavior should go back the
 Laplace problem.
 
 \subsection{Aggressive coarsening}
+(a)\\
+Not sure here is our guess:
+\begin{equation}
+    FG = id -I_{2n} I_{n} H_{n}^{-1} R_{2n} R_{4n} H_{4n}.
+\end{equation}
+Not sure what is meant by the eigenmode analysis but what we previously
+did does generalizes. The eigenmodes that are complementary with $w_{k}^{4n}$ on
+the $n$ grid are: $w_{4n-k}^{4n},w_{2n-k}^{4n},w_{2n+k}^{4n}$. \\
+(b)\\
+Our solve diverged. Our intuition is that we basically are skipping a smoothing step.
 
 \section{Multigrid as a preconditioner for Krylov subspace methods}
 

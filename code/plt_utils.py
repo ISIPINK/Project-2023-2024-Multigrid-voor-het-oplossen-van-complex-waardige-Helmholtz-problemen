@@ -31,7 +31,7 @@ def plt_mats(mats, titles=[]):
 def plt_vec(v, title=""):
     plt.bar(range(1, len(v)+1), v.real)
     dv = np.diff(v)
-    if norm(dv) < 0.1*norm(v):
+    if norm(dv) < 0.2*norm(v):
         plt.plot(range(1, len(v)+1), 1.1*v.real, alpha=1, color="green")
     plt.title(title)
     plt.grid(True)

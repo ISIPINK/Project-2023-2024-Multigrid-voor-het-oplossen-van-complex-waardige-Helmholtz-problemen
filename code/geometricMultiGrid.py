@@ -33,13 +33,8 @@ def simple_interpolate2D(v):
 
 def geoVcycle(mat, f, u, nu1, nu2, relax, restrict, interpolate, recursion_depth, dimensions=1):
     n = get_n(u, dimensions)
-
-    if not (n % 2**(recursion_depth*dimensions) == 0):
-        raise ValueError(
-            "Length of u must be divisible by 2**(recursion_depth*dimensions)")
-
     A = mat(n)
-    if recursion_depth == 0:
+    if n == 2 or recursion_depth == 0:
         return spsolve(A, f)
 
     for _ in range(nu1):
