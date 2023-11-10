@@ -1,11 +1,6 @@
-from bokeh.io import output_notebook, show
-from bokeh.models import HoverTool, WheelZoomTool, PanTool, ResetTool, ColumnDataSource
-from bokeh.plotting import figure
-from matplotlib.backends.backend_agg import FigureCanvasAgg
 import matplotlib.pyplot as plt
 from ipywidgets import interact, widgets
 import numpy as np
-import pacmap
 from scipy.linalg import norm
 
 
@@ -75,30 +70,6 @@ def plt_vecs2D(vecs, titles=[]):
     )
     def tmp(i):
         plt_vec2D(vecs[i], titles[i])
-
-
-def plt_vecs_pacmap(vecs):
-    reducer = pacmap.PaCMAP()
-    embedding = reducer.fit_transform(vecs)
-
-    output_notebook()
-
-    source = ColumnDataSource(data={
-        "x": embedding[:, 0],
-        "y": embedding[:, 1],
-        "eigvec": vecs
-    })
-
-    p = figure(tools=[WheelZoomTool(), PanTool(), ResetTool()])
-    p.scatter("x", "y", size=10, source=source)
-
-    hover = HoverTool(tooltips=[
-        ("Index", "$index"),
-        ("Eigenvector", "@eigvec")
-    ])
-
-    p.add_tools(hover)
-    show(p)
 
 
 def plt_R_im_abs(xs, ys, label, linestyle=None):
