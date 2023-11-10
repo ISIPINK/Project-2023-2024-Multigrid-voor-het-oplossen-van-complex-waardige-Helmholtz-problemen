@@ -34,3 +34,7 @@ def wave_basis_2Dx(n, k):
 
 def wave_basis_2Dy(n, k):
     return np.outer(wave_basis_1D(n, k), np.ones(n-1)).flatten()
+
+
+def pointsource_half2D(n):
+    return np.outer(pointsource_half(n), pointsource_half(n)).flatten()

@@ -31,8 +31,8 @@ def plt_mats(mats, titles=[]):
 def plt_vec(v, title=""):
     plt.bar(range(1, len(v)+1), v.real)
     dv = np.diff(v)
-    if norm(dv)/norm(v) < 0.3:
-        plt.plot(range(1, len(v)+1), 1.1*v, alpha=1, color="green")
+    if norm(dv) < 0.1*norm(v):
+        plt.plot(range(1, len(v)+1), 1.1*v.real, alpha=1, color="green")
     plt.title(title)
     plt.grid(True)
 
@@ -51,10 +51,18 @@ def plt_vecs(vecs, titles=[]):
 def plt_vec2D(vector, title=""):
     d = int(np.sqrt(len(vector)))
     matrix = np.reshape(vector, (d, d), order='F')
-    print(f"n = {int(np.sqrt(vector.shape))+1}")
-    plt.imshow(matrix, cmap='viridis')
+    plt.figure(figsize=(13, 5))
+    # Plot for the real part
+    plt.subplot(1, 2, 1)
+    plt.imshow(matrix.real, cmap='viridis')
     plt.colorbar()
-    plt.title(title)
+    plt.title(f"Real Part - {title}")
+
+    # Plot for the imaginary part
+    plt.subplot(1, 2, 2)
+    plt.imshow(matrix.imag, cmap='viridis')
+    plt.colorbar()
+    plt.title(f"Imaginary Part - {title}")
     plt.show()
 
 
