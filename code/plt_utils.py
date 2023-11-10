@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 from ipywidgets import interact, widgets
 import numpy as np
 import pacmap
+from scipy.linalg import norm
 
 
 def plt_mat(H, title=""):
@@ -13,6 +14,7 @@ def plt_mat(H, title=""):
     plt.colorbar()
     plt.title(title)
     plt.grid(True)
+    print(f"shape={H.shape}")
 
 
 def plt_mats(mats, titles=[]):
@@ -28,7 +30,9 @@ def plt_mats(mats, titles=[]):
 
 def plt_vec(v, title=""):
     plt.bar(range(1, len(v)+1), v.real)
-    plt.plot(range(1, len(v)+1), 1.1*v, alpha=1, color="green")
+    dv = np.diff(v)
+    if norm(dv)/norm(v) < 0.3:
+        plt.plot(range(1, len(v)+1), 1.1*v, alpha=1, color="green")
     plt.title(title)
     plt.grid(True)
 
@@ -42,6 +46,27 @@ def plt_vecs(vecs, titles=[]):
     )
     def tmp(i):
         plt_vec(vecs[i], titles[i])
+
+
+def plt_vec2D(vector, title=""):
+    d = int(np.sqrt(len(vector)))
+    matrix = np.reshape(vector, (d, d), order='F')
+    print(f"n = {int(np.sqrt(vector.shape))+1}")
+    plt.imshow(matrix, cmap='viridis')
+    plt.colorbar()
+    plt.title(title)
+    plt.show()
+
+
+def plt_vecs2D(vecs, titles=[]):
+    if len(titles) == 0:
+        titles = [""] * len(vecs)
+
+    @interact(
+        i=widgets.IntSlider(value=0, min=0, max=len(vecs) - 1, description="i")
+    )
+    def tmp(i):
+        plt_vec2D(vecs[i], titles[i])
 
 
 def plt_vecs_pacmap(vecs):
