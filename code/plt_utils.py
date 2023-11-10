@@ -47,13 +47,10 @@ def plt_vec2D(vector, title=""):
     d = int(np.sqrt(len(vector)))
     matrix = np.reshape(vector, (d, d), order='F')
     plt.figure(figsize=(13, 5))
-    # Plot for the real part
     plt.subplot(1, 2, 1)
     plt.imshow(matrix.real, cmap='viridis')
     plt.colorbar()
     plt.title(f"Real Part - {title}")
-
-    # Plot for the imaginary part
     plt.subplot(1, 2, 2)
     plt.imshow(matrix.imag, cmap='viridis')
     plt.colorbar()
