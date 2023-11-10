@@ -134,29 +134,36 @@ which suggests that weighted jacobi wouldn't converge.
 
 \subsection{Spectral analysis of the two-grid correction scheme}
 (a) \\
-Note that
+It is easily seen that
 \begin{equation}
-    R_{2n} w_{k}^{2n} =
-    \begin{cases}
-        a(k) w_{k}^{n}   & \text{if } k \leq n \\
-        a(n-k) w_{k}^{n} & \text{if } k > n
-    \end{cases}
+    R_{2n} =  c S_{2n} (3id -A_{2n}).
 \end{equation}
-and
+with $c \in \mathbb{R}_{0}$, $S_{2n}: \mathbb{R}^{2n-1} \rightarrow \mathbb{R}^{n-1}: (v_{j})_{j \leq 2n-2}
+    \rightarrow (v_{2j+1})_{j \leq n-2}$  subsampling uneven components.
+Using that $S_{2n}w_{k}^{2n} = w_{k}^{n}$ if $k<n$ it is easily seen that:
+\begin{align*}
+    R_{2n} w_{k}^{2n} & = cS_{2n}(3id- A_{2n}) w_{k}^{2n}             \\
+                      & = c(3- \lambda_{k}(A_{2n})) S_{2n} w_{k}^{2n} \\
+                      & = a(n,k) w_{k}^{n} .
+\end{align*}
+In our case $I_{n}$ is linear interpolation, reconstuction error for lagrange interpolation can be bounded
+using Taylors theorem.
 \begin{equation}
-    I_{n} R_{2n} v_{2n} \approx v_{2n}.
+    I_{n} S_{2n} v_{2n}  \approx c v_{2n}.
+    .
 \end{equation}
-if $v_{2n}$ is smooth sometimes by definition.
-We checked this numerically by plotting the reconstruction error.
-For linear interpolation and the corresponding restriction
-this follows from bounds on reconstruction loss for
-Lagrange interpolation. To check the normalizing constant try $v_{2n} = 1$. \\
-
+For $w_{k}^{2n}$ smooth and combining with previous argument we have:
+\begin{equation}
+    I_{n} R_{2n} w_{2n}  \approx c_{1} w_{2n}.
+\end{equation}
+To check the normalizing constant try $v_{2n} = 1 \Rightarrow c_{1} =1$. \\
+We also checked these facts numerically by plotting see code. Now doing spectral analysis of TG is
+straight forward:
 \begin{align*}
     TG w_{k}^{2n} & = (id - I_{n} H_{n}^{-1} R_{2n} H_{2n}) w_{k}^{2n}                                    \\
                   & =  w_{k}^{2n} - I_{n} H_{n}^{-1} R_{2n} \lambda_{k}(H_{2n}) w_{k}^{2n}                \\
-                  & =  w_{k}^{2n} - I_{n} H_{n}^{-1}  a(k) w_{k}^{n} \lambda_{k}(H_{2n})                  \\
-                  & =  w_{k}^{2n} - I_{n}  a(k) w_{k}^{n} \lambda_{k}(H_{n}^{-1})  \lambda_{k}(H_{2n})    \\
+                  & =  w_{k}^{2n} - I_{n} H_{n}^{-1}  a(n,k) w_{k}^{n} \lambda_{k}(H_{2n})                \\
+                  & =  w_{k}^{2n} - I_{n}  a(n,k) w_{k}^{n} \lambda_{k}(H_{n}^{-1})  \lambda_{k}(H_{2n})  \\
                   & =  w_{k}^{2n} - I_{n}  R_{2n} w_{k}^{2n} \lambda_{k}(H_{n}^{-1})  \lambda_{k}(H_{2n}) \\
                   & \approx  w_{k}^{2n} -  w_{k}^{2n} \lambda_{k}(H_{n}^{-1})  \lambda_{k}(H_{2n})        \\
                   & \approx  w_{k}^{2n} (1-   \lambda_{k}(H_{n}^{-1})  \lambda_{k}(H_{2n}))
@@ -167,17 +174,47 @@ We already analytically derived the eigenvalues for $H_{n}$. For the plot see co
 TG iterations may amplify smooth modes when $\rho_{k} >1$. \\
 (c)\\
 See code for the plots. $\rho_{k} >1$ when the sign changes. In the previous case the
-index closest to the sign change is $k = 6$. No the smoother leaves smooth modes almost unchanged.
+index closest to the sign change is $k = 6$. No, the smoother leaves smooth modes almost unchanged.
 
 
 
 \section{Solving the complex-valued Helmholtz problem using Multigrid}
 
+
 \subsection{1D model problem}
+(a) \\
+see code
+
+(b)\\
+For a point source it may not be obvious but the solutions
+for complex shifted problem is very similar.
+
+(c) \\
+see code
 
 \subsection{LFA analysis of the $\omega$-Jacobi smoother}
+(a) \\
+Already answered in previous question. $\rho$ is still $|G(\theta)|$ almost the same reasoning.
+\begin{equation}
+    |G(\theta)| = |a + b \cos(\theta) + c \cos(\theta)i|
+\end{equation}
+with $a,b \in \mathbb{R}^{+}$ and $c \in  \mathbb{R}$ still gets optimized when $\cos\left(\theta\right)$
+gets optimized. Using that argument requires that $2n^{2}+R(\sigma)\geq 0$ which follows from the criterium on
+$n$ we placed at the start.
+
+(b) \\
+Depending on $\beta$ the smoother may be stable. \\
+(c) \\
+We think $|G(\pi)|$ or $|G(\frac{\pi}{2})|$. We have numerical evidence not a proof yet.
+(d) \\
+Eyeballing the plot we made $\omega \approx 0.65$ is good.
 
 \subsection{Spectral analysis of the two-grid correction scheme}
+(a) \\
+Already did that. See code. Well with the formula not numerical eigenvalues ... \\
+(b) \\
+The instability in $\rho_{k}$ dampens.
+
 
 \subsection{2D model problem}
 

@@ -41,7 +41,7 @@ def wave_basis_1D(n, k):
 
 
 def pointsource_half(n):
-    return np.array([1/n if j == int(n/2) else 0 for j in range(n-1)])
+    return np.array([n if j == int(n/2) else 0 for j in range(n-1)])
 
 
 def guessv0(n):

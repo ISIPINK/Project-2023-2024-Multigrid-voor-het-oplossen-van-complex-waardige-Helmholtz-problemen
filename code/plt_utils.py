@@ -13,7 +13,6 @@ def plt_mat(H, title=""):
     plt.colorbar()
     plt.title(title)
     plt.grid(True)
-    plt.show()
 
 
 def plt_mats(mats, titles=[]):
@@ -28,11 +27,10 @@ def plt_mats(mats, titles=[]):
 
 
 def plt_vec(v, title=""):
-    plt.bar(range(1, len(v)+1), v)
+    plt.bar(range(1, len(v)+1), v.real)
     plt.plot(range(1, len(v)+1), 1.1*v, alpha=1, color="green")
     plt.title(title)
     plt.grid(True)
-    plt.show()
 
 
 def plt_vecs(vecs, titles=[]):
@@ -44,7 +42,6 @@ def plt_vecs(vecs, titles=[]):
     )
     def tmp(i):
         plt_vec(vecs[i], titles[i])
-
 
 
 def plt_vecs_pacmap(vecs):
