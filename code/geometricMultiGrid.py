@@ -19,16 +19,16 @@ def simple_restrict(v):
     return simple_restrict_matrix(get_n(v, 1))@v
 
 
-def simple_interpolate(v):
-    return simple_interpolate_matrix(get_n(v, 1))@v
+def simple_interpolate(v, lin_boundary=False):
+    return simple_interpolate_matrix(get_n(v, 1), lin_boundary)@v
 
 
 def simple_restrict2D(v):
     return simple_restrict_matrix2D(get_n(v, 2))@v
 
 
-def simple_interpolate2D(v):
-    return simple_interpolate_matrix2D(get_n(v, 2))@v
+def simple_interpolate2D(v, lin_boundary=False):
+    return simple_interpolate_matrix2D(get_n(v, 2), lin_boundary)@v
 
 
 def geoVcycle(mat, f, u, nu1, nu2, relax, restrict, interpolate, recursion_depth, dimensions=1):

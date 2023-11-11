@@ -23,12 +23,21 @@ def plt_mats(mats, titles=[]):
         plt_mat(mats[i], titles[i])
 
 
-def plt_vec(v, title=""):
-    plt.bar(range(1, len(v)+1), v.real)
+def plt_vec(v, title="", reuse=False):
     dv = np.diff(v)
-    if norm(dv) < 0.2*norm(v):
+    if not (reuse):
+        plt.figure(figsize=(13, 5))
+    plt.subplot(1, 2, 1)
+    plt.bar(range(1, len(v)+1), v.real)
+    if norm(dv.real) < 0.2*norm(v.real):
         plt.plot(range(1, len(v)+1), 1.1*v.real, alpha=1, color="green")
-    plt.title(title)
+    plt.title(f"Real Part - {title}")
+    plt.grid(True)
+    plt.subplot(1, 2, 2)
+    plt.bar(range(1, len(v)+1), v.imag, hatch="\\")
+    if norm(dv.imag) < 0.2*norm(v.imag):
+        plt.plot(range(1, len(v)+1), 1.1*v.imag, alpha=1, color="green")
+    plt.title(f"Imaginary Part - {title}")
     plt.grid(True)
 
 
@@ -41,6 +50,7 @@ def plt_vecs(vecs, titles=[]):
     )
     def tmp(i):
         plt_vec(vecs[i], titles[i])
+        plt.show()
 
 
 def plt_vec2D(vector, title=""):
@@ -67,6 +77,7 @@ def plt_vecs2D(vecs, titles=[]):
     )
     def tmp(i):
         plt_vec2D(vecs[i], titles[i])
+        plt.show()
 
 
 def plt_R_im_abs(xs, ys, label, linestyle=None):

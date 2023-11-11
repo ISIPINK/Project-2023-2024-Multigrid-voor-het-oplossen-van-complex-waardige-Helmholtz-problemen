@@ -19,13 +19,17 @@ def simple_restrict_matrix2D(n):
     return kron(R_1D, R_1D)
 
 
-def simple_interpolate_matrix2D(n):
-    I_1D = simple_interpolate_matrix(n)
+def simple_interpolate_matrix2D(n, lin_boundary=False):
+    I_1D = simple_interpolate_matrix(n, lin_boundary)
     return kron(I_1D, I_1D)
 
 
 def wave_basis_2D(n, k, l):
     return np.outer(wave_basis_1D(n, k), wave_basis_1D(n, l)).flatten()
+
+
+def wave_basis_2D_complex(n, k, l):
+    return np.outer(wave_basis_1D_complex(n, k), wave_basis_1D_complex(n, l)).flatten()
 
 
 def wave_basis_2Dx(n, k):
