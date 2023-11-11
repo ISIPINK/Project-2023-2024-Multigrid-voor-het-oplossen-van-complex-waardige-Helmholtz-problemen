@@ -23,21 +23,21 @@ def plt_mats(mats, titles=[]):
         plt_mat(mats[i], titles[i])
 
 
-def plt_vec(v, title="", reuse=False):
+def plt_vec(v, title="", reuse=False, label=None):
     dv = np.diff(v)
     if not (reuse):
         plt.figure(figsize=(13, 5))
     plt.subplot(1, 2, 1)
-    plt.bar(range(1, len(v)+1), v.real)
+    plt.bar(range(1, len(v)+1), v.real, label=label)
     if norm(dv.real) < 0.2*norm(v.real):
         plt.plot(range(1, len(v)+1), 1.1*v.real, alpha=1, color="green")
-    plt.title(f"Real Part - {title}")
+    plt.title(f"Real - {title}")
     plt.grid(True)
     plt.subplot(1, 2, 2)
-    plt.bar(range(1, len(v)+1), v.imag, hatch="\\")
+    plt.bar(range(1, len(v)+1), v.imag, hatch="\\", label=label)
     if norm(dv.imag) < 0.2*norm(v.imag):
         plt.plot(range(1, len(v)+1), 1.1*v.imag, alpha=1, color="green")
-    plt.title(f"Imaginary Part - {title}")
+    plt.title(f"Imag - {title}")
     plt.grid(True)
 
 
@@ -60,11 +60,11 @@ def plt_vec2D(vector, title=""):
     plt.subplot(1, 2, 1)
     plt.imshow(matrix.real, cmap='viridis')
     plt.colorbar()
-    plt.title(f"Real Part - {title}")
+    plt.title(f"Real - {title}")
     plt.subplot(1, 2, 2)
     plt.imshow(matrix.imag, cmap='viridis')
     plt.colorbar()
-    plt.title(f"Imaginary Part - {title}")
+    plt.title(f"Imag- {title}")
     plt.show()
 
 
