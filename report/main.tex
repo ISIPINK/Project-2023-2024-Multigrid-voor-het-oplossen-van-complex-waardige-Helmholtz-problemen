@@ -51,31 +51,31 @@ style=alphabetic,
 
 \subsection{Discretization}
 (a)
-\begin{align*}
+\begin{align}
     10                    & \leq \lambda \text{ \#gridpoints} \Leftrightarrow                \\
     10                    & \leq \frac{2\pi}{\sqrt{|\sigma|}} \frac{1}{h^{d}}\Leftrightarrow \\
     \sqrt{|\sigma|} h^{d} & \leq \frac{2 \pi}{10} \approx 0.625.
-\end{align*}
+\end{align}
 
 (b)
 \[
-    \text{\# roosterpunten} = \frac{10 \sqrt{600}}{2 \pi}
+    \text{\# gridpoints} = \frac{10 \sqrt{600}}{2 \pi}
     .\]
 
 \subsection{1D model problem}
 (a) \\
 To proof : $H^{2 h} \neq I_h^{2 h} H^h I_{2 h}^h$.
-\begin{align*}
+\begin{align}
     H^{2h} & = H_n = A_n +\sigma {id}_n          \\
     H^{h}  & = H_{2n} = A_{2n} +\sigma {id}_{2n}
-\end{align*}
+\end{align}
 Assume that $A_n =I_h^{2 h} A_{2n} I_{2 h}^h= R_{2n} A_{2n} I_n$. By linearity it is  sufficient
 to proof:
-\begin{align*}
+\begin{align}
     \sigma {id}_n  & \neq \sigma R_{2n} {id}_{2n} I_{n} \Leftrightarrow \\
     {id}_n         & \neq R_{2n} I_{n} \Leftarrow                       \\
     (id_n)_{00} =1 & \neq \frac{3}{4} = (R_{2n} I_{n})_{00}
-\end{align*}
+\end{align}
 
 First equivalence follows from $\sigma \neq 0$. The assumption and the last inequality depends on the definition of
 restriction and interpolation. \\
@@ -85,11 +85,11 @@ middle element of $f_n$.\\
 (c) \\
 There exists a closed formula for eigenvalues and eigenvectors of tridiagonal toeplitz matrix. It is just tedious to
 use. Alternatively the eigenvalues and eigenvectors can be derived from the Poisson problem ($\sigma=0$) because
-\begin{align*}
+\begin{align}
     Av             & = \lambda v \Rightarrow \\
     (A+\sigma id)v & = Av + \sigma v         \\
                    & = (\lambda+\sigma)v
-\end{align*}
+\end{align}
 i.e. eigenvectors stay the same and eigenvalues get shifted by $\sigma$. \\
 
 (d) \\
@@ -111,17 +111,17 @@ So $R_{\omega}$ works element wise the following way on the error:
 Very similar to the analysis for the Poisson equation. Note that we haven't used that $\sigma$ is real.
 Doing the LFA subsitution $e_j^{(m)}=\mathcal{A}(m) e^{i j \theta}$:
 
-\begin{align*}
+\begin{align}
     A(m+1) & = A(m) \left( 1-\omega + \frac{\omega n^{2}}{2 n^{2} + \sigma} (e^{-i\theta} + e^{i\theta}) \right) \\
            & = A(m) \left( 1-\omega + 2 \cos(\theta) \frac{\omega n^{2}}{2 n^{2} + \sigma}   \right)
-\end{align*}
+\end{align}
 The factor in behind of $A(m)$ is the amplification factor $G(\theta)$.
 
 (b) \\
 $\sigma = 0$ reduces back to the LFA we did for the Poisson equation.
 $\theta \approx 0 \Rightarrow \cos(\theta)
     \approx 1 + O \left(\frac{1}{n^{2}}\right) \Rightarrow G(\theta) \approx 1 - O \left(\frac{1}{n^{2}}\right)$
-so smooth modes are preserved for big $n$.
+so smooth modes are preserved for big $n$. \\
 (c) \\
 See code/main.ipynb for the plot. \\
 
@@ -141,11 +141,11 @@ It is easily seen that
 with $c \in \mathbb{R}_{0}$, $S_{2n}: \mathbb{R}^{2n-1} \rightarrow \mathbb{R}^{n-1}: (v_{j})_{j \leq 2n-2}
     \rightarrow (v_{2j+1})_{j \leq n-2}$  subsampling uneven components.
 Using that $S_{2n}w_{k}^{2n} = w_{k}^{n}$ if $k<n$ it is easily seen that:
-\begin{align*}
+\begin{align}
     R_{2n} w_{k}^{2n} & = cS_{2n}(3id- A_{2n}) w_{k}^{2n}             \\
                       & = c(3- \lambda_{k}(A_{2n})) S_{2n} w_{k}^{2n} \\
                       & = a(n,k) w_{k}^{n} .
-\end{align*}
+\end{align}
 In our case $I_{n}$ is linear interpolation, reconstuction error for lagrange interpolation can be bounded
 using Taylors theorem.
 \begin{equation}
@@ -159,7 +159,7 @@ For $w_{k}^{2n}$ smooth and combining with previous argument we have:
 To check the normalizing constant try $v_{2n} = 1 \Rightarrow c_{1} =1$. \\
 We also checked these facts numerically by plotting see code. Now doing spectral analysis of TG is
 straight forward:
-\begin{align*}
+\begin{align}
     TG w_{k}^{2n} & = (id - I_{n} H_{n}^{-1} R_{2n} H_{2n}) w_{k}^{2n}                                    \\
                   & =  w_{k}^{2n} - I_{n} H_{n}^{-1} R_{2n} \lambda_{k}(H_{2n}) w_{k}^{2n}                \\
                   & =  w_{k}^{2n} - I_{n} H_{n}^{-1}  a(n,k) w_{k}^{n} \lambda_{k}(H_{2n})                \\
@@ -167,7 +167,7 @@ straight forward:
                   & =  w_{k}^{2n} - I_{n}  R_{2n} w_{k}^{2n} \lambda_{k}(H_{n}^{-1})  \lambda_{k}(H_{2n}) \\
                   & \approx  w_{k}^{2n} -  w_{k}^{2n} \lambda_{k}(H_{n}^{-1})  \lambda_{k}(H_{2n})        \\
                   & \approx  w_{k}^{2n} (1-   \lambda_{k}(H_{n}^{-1})  \lambda_{k}(H_{2n}))
-\end{align*}
+\end{align}
 
 (b) \\
 We already analytically derived the eigenvalues for $H_{n}$. For the plot see code.\\
@@ -218,7 +218,7 @@ The instability in $\rho_{k}$ dampens.
 
 \subsection{2D model problem}
 (a) \\
-Solve happens in the code.
+Solve happens in the code.\\
 (b) \\
 Less iterations are needed for the same amount of error. This is because
 $\sigma$ the source of the problem get relatively smaller to $n^{2}$ in
@@ -246,7 +246,7 @@ cheaper on everything but the operations on the base grid. (Half of the geometri
 
 \subsection{MG-GMRES for the indefinite Helmholtz problem}
 (a) \\
-See code.
+See code.\\
 (b) \\
 Convergence is shifted down and is similar.\\
 (c) \\
@@ -255,7 +255,7 @@ to big $\beta$ would make the problem to different to use to precondition.
 
 \end{document}
 
-% Base your answers on the thesis.  
+% Base your answers on the report.  
 % You are expert in giving and revising homework.
 %
 % Answer as a markdown file.
@@ -270,3 +270,4 @@ to big $\beta$ would make the problem to different to use to precondition.
 % 2. Are there any writing errors?
 % 3. What are the most unclear parts in the report?
 % 4. Suggest improvements. 
+% 5. Are all letter (letter) "entered" properly?
