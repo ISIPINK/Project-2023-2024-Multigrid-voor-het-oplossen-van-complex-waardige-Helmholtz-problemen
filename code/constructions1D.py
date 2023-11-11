@@ -33,7 +33,7 @@ def simple_interpolate_matrix(n, lin_boundary=False):
     col0 = np.array([1, 2, 1])
     for j in range(I.shape[1]):
         I[2*j:2*j+3, j] = col0/2
-    if lin_boundary:
+    if lin_boundary:  # @boundaries linear extrapolation
         I[0, 0] = 3/2
         I[0, 1] = -1/2
         I[-1, -1] = 3/2

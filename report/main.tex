@@ -227,7 +227,7 @@ Laplace problem.
 
 \subsection{Aggressive coarsening}
 (a)\\
-Not sure here is our guess:
+Not sure here is our guess:(TG = two grid,FG= four grid)
 \begin{equation}
     FG = id -I_{2n} I_{n} H_{n}^{-1} R_{2n} R_{4n} H_{4n}.
 \end{equation}
@@ -235,7 +235,12 @@ Not sure what is meant by the eigenmode analysis but what we previously
 did does generalizes. The eigenmodes that are complementary with $w_{k}^{4n}$ on
 the $n$ grid are: $w_{4n-k}^{4n},w_{2n-k}^{4n},w_{2n+k}^{4n}$. \\
 (b)\\
-Our solve diverged. Our intuition is that we basically are skipping a smoothing step.
+Our solver diverged. Basically we are skipping a smoothing step which
+makes the interpolation worse. Also relevant is that convergence
+for this problem is better on larger grids. In the FG eigenmode analysis, interpolation error is worse
+and eigenvalues are less similar which suggest that only the smoothest modes of the errors get dampend.
+Accuracy drops but the trade off is that aggressive coarsening is less expensive about $\frac{1}{2^{d}}$
+cheaper on everything but the operations on the base grid. (Half of the geometric series is gone.)
 
 \section{Multigrid as a preconditioner for Krylov subspace methods}
 

@@ -32,17 +32,59 @@ def simple_interpolate2D(v, lin_boundary=False):
 
 
 def geoVcycle(mat, f, u, nu1, nu2, relax, restrict, interpolate, recursion_depth, dimensions=1):
-    n = get_n(u, dimensions)
+    """
+    Applies 1 V-cylce.
+
+    Parameters:
+    ----------
+    mat : function
+        A function that generates the matrix A for a given grid size.
+        See in constructions1D for example.
+    f : numpy.ndarray
+        The right-hand side vector of the linear system Au = f.
+    u : numpy.ndarray
+        The initial guess for the solution vector u. In general
+        should contain the geometric information of u.
+    nu1 : int
+        The number of relaxation iterations before the V-cycle.
+    nu2 : int
+        The number of relaxation iterations after the V-cycle.
+    relax : function
+        A relaxation method to smooth the error in each iteration.
+        Should be similar to wjacobi. 
+    restrict : function
+        A restriction operator that maps a fine grid residual to a coarse grid.
+        Should be similar to simple_restrict.
+    interpolate : function
+        An interpolation operator that maps a coarse grid correction to a fine grid.
+        Should be similar to interpolate.
+    recursion_depth : int
+        The recursion depth, how many recursion to be done
+        after solving directly with spsolve.
+    dimensions : int, optional
+        The number of dimensions of the grid. 
+
+    Returns:
+    -------
+    numpy.ndarray
+        The solution vector u after the V-cycle iterations.
+    ------
+    """
+
+    n = get_n(u, dimensions)  # geometric/grid information
     A = mat(n)
-    if n == 2 or recursion_depth == 0:
+
+    # Recursion stops when the grid size is less then 3 or when the specified recursion depth is reached.
+    if n <= 3 or recursion_depth == 0:
         return spsolve(A, f)
 
     for _ in range(nu1):
         u = relax(A, f, u)
 
     r_coarse = restrict(f - A@u)
-    e_coarse = geoVcycle(mat, r_coarse, np.zeros(len(r_coarse)), nu1, nu2,  relax,
-                         restrict, interpolate, recursion_depth-1, dimensions)
+    e_coarse = geoVcycle(
+        mat,  r_coarse, np.zeros(len(r_coarse)),
+        nu1, nu2, relax, restrict, interpolate, recursion_depth-1, dimensions)
     e = interpolate(e_coarse)
     u += e
 
