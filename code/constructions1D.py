@@ -29,16 +29,16 @@ def simple_restrict_matrix(n):
 
 
 def simple_interpolate_matrix(n, lin_boundary=False):
-    I = dok_matrix((2*n - 1, n-1))
+    P = dok_matrix((2*n - 1, n-1))
     col0 = np.array([1, 2, 1])
-    for j in range(I.shape[1]):
-        I[2*j:2*j+3, j] = col0/2
-    if lin_boundary:  # @boundaries linear extrapolation
-        I[0, 0] = 3/2
-        I[0, 1] = -1/2
-        I[-1, -1] = 3/2
-        I[-1, -2] = -1/2
-    return I
+    for j in range(P.shape[1]):
+        P[2*j:2*j+3, j] = col0/2
+    if lin_boundary:  # @boundaries linear extrapolation, not needed 0 boundaries
+        P[0, 0] = 3/2
+        P[0, 1] = -1/2
+        P[-1, -1] = 3/2
+        P[-1, -2] = -1/2
+    return P
 
 
 def wave_basis_1D(n, k):

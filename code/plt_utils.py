@@ -99,4 +99,3 @@ def plt_eigen(Hs, labels, title=""):
     plt.grid(True)
     plt.xlabel('Eigenvalue Index')
     plt.ylabel('Eigenvalue')
-    plt.show()
