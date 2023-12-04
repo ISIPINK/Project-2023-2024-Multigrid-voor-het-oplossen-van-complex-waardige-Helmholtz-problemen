@@ -31,8 +31,6 @@ function geoVcycle(; mat, f, u, nu1, nu2, relax, restrict, interpolate, recursio
     n = get_n(u, dimensions)  # geometric/grid information
     A = mat(n)
 
-    # Recursion stops when the grid size is less then 3 or 
-    # when the specified recursion depth is reached.
     if n <= 3 || recursion_depth == 0
         return A \ f
     end
@@ -43,8 +41,17 @@ function geoVcycle(; mat, f, u, nu1, nu2, relax, restrict, interpolate, recursio
 
     r_coarse = restrict(f - A * u)
     e_coarse = geoVcycle(
-        mat, r_coarse, zeros(length(r_coarse)),
-        nu1, nu2, relax, restrict, interpolate, recursion_depth - 1, dimensions)
+        mat=mat,
+        f=r_coarse,
+        u=zero(r_coarse),
+        nu1=nu1,
+        nu2=nu2,
+        relax=relax,
+        restrict=restrict,
+        interpolate=interpolate,
+        recursion_depth=recursion_depth - 1,
+        dimensions=dimensions)
+
     e = interpolate(e_coarse)
     u += e
 

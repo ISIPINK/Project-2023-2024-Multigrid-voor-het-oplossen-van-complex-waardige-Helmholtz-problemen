@@ -3,8 +3,8 @@ include("constructions1D.jl")
 
 function helmholtz2D(n, σ)
     A_1D = n^2 * spdiagm(-1 => -ones(n - 2), 0 => 2 * ones(n - 1), 1 => -ones(n - 2))
-    A_2D = kron(sparse(I, n - 1, n - 1), A_1D) + kron(A_1D, sparse(I, n - 1, n - 1))
-    return A_2D + σ * sparse(I, (n - 1)^2, (n - 1)^2)
+    A_2D = kron(sparse(I, n - 1, n - 1), A_1D) .+ kron(A_1D, sparse(I, n - 1, n - 1))
+    return A_2D .+ σ * sparse(I, (n - 1)^2, (n - 1)^2)
 end
 
 function simple_restrict_matrix2D(n)
