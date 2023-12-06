@@ -342,10 +342,27 @@ cheaper on everything but the operations on the base grid. (Half the geometric s
 
 \subsection{MG-GMRES for the indefinite Helmholtz problem}
 (a) \\
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../code/plts/gmres_pointsource.pdf}
+    \caption{Convergence behavior of the norm of the residuals of gmres preconditioned with Vcyles with different $\sigma$
+        for the Helmholtz equation with pointsource.}
+    \label{fig:gmres point_source}
+\end{figure}
+
 (b) \\
+See (a).
+
 (c) \\
-We tried different $\beta$. It seems that to small $\beta$ suffers from the instability problem and
-to big $\beta$ would make the problem to different to use to precondition.
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../code/plts/gmres_combined_wave_restarts.pdf}
+    \caption{Convergence behavior of the norm of the residuals of restarted gmres preconditioned with Vcyles with different $\sigma$
+        for the Helmholtz equation with a mixed wave basis source.}
+    \label{fig:gmres restart}
+\end{figure}
+Too large  $\beta$ results in a preconditioner too far from the inverse, too small $\beta$
+makes the vcycle behave poorly. $\beta = 0.5$ appears to be a good balance.
 
 \end{document}
 
