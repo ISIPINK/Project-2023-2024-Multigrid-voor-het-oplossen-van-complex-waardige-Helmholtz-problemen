@@ -4,10 +4,21 @@ function get_n(v, dimensions)
     return Int(floor(length(v)^(1 / dimensions))) + 1
 end
 
-function wjacobi(A, f, u, omega)
+function wjacobi_short(A, f, u, omega)
     Dinv = spdiagm(0 => 1 ./ diag(A))
     U, L = triu(A, 1), tril(A, -1)
     return (1 - omega) * u + omega * Dinv * (f - (U + L) * u)
+end
+
+function wjacobi(A, f, u, omega)
+    Dinv = spdiagm(0 => 1 ./ diag(A))
+    U, L = triu(A, 1), tril(A, -1)
+    temp = U * u
+    temp .+= L * u
+    temp .= f .- temp
+    temp .= Dinv * temp
+    temp .= (1 - omega) .* u .+ omega .* temp
+    return temp
 end
 
 function simple_restrict(v)
